@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
+import java.util.*;
+import java.io.*;
 import java.awt.*;
 public class AdventureGUI {
 
@@ -29,77 +32,72 @@ public class AdventureGUI {
    public static void playGame(Scanner console, Options firstOption) throws IllegalArgumentException{
       boolean userIsAlive = true;
       boolean nowDead = false;
-      /*String firstTitle = firstOption.getTitle();
-      String firstDescription= firstOption.getDescription();
-      JScrollPane scrollPane= new JScrollPane(new JLabel(firstDescription));
-      scrollPane.setPreferredSize(new Dimension(500,250));
-      Object message = scrollPane;         
-      JTextArea textArea= new JTextArea(firstDescription);
-      textArea.setLineWrap(true);
-      textArea.setWrapStyleWord(true);
-      textArea.setMargin(new Insets(5,5,5,5));
-      scrollPane.getViewport().setView(textArea);
-      message= scrollPane;
-      String userChoice = JOptionPane.showInputDialog(null,message);               
-      Options choice = firstOption.getAction(userChoice);*/
-      while(userIsAlive){
-         boolean thirdOp= false;
-         String firstTitle = " ";
-         JScrollPane scrollPane = null;
-         Object message = null;
-         JTextArea textArea = null;
-         String userChoice = " ";
-         Options nextChoice = null;
-         String firstDescription = " ";
-         
-         String nextDescription = " ";
-         boolean aOrB = false;
-         while(aOrB != true){
+      boolean thirdOp= false;
+      String firstTitle = " ";
+      JScrollPane scrollPane = null;
+      Object message = null;
+      JTextArea textArea = null;
+      String userChoice = " ";
+      Options nextChoice = null;
+      String firstDescription = " ";
+      Options choice = null;
+      String nextDescription = " ";
+      boolean aOrB = false;
+      while(aOrB != true){
          try{
-       firstTitle = firstOption.getTitle();
-      firstDescription= firstOption.getDescription();
-      scrollPane= new JScrollPane(new JLabel(firstDescription));
-      scrollPane.setPreferredSize(new Dimension(500,250));
-      message = scrollPane;         
-      textArea= new JTextArea(firstDescription);
-      textArea.setLineWrap(true);
-      textArea.setWrapStyleWord(true);
-      textArea.setMargin(new Insets(5,5,5,5));
-      scrollPane.getViewport().setView(textArea);
-      message= scrollPane;
-      userChoice = JOptionPane.showInputDialog(null,message);               
-      Options choice = firstOption.getAction(userChoice);
-         nextDescription = choice.getDescription();
-         aOrB = true;
-          }catch(NullPointerException a){
-         JOptionPane.showMessageDialog(null,"Please type a or b");
-         aOrB = false;
-         }      
+            firstTitle = firstOption.getTitle();
+            firstDescription= firstOption.getDescription();
+            scrollPane= new JScrollPane(new JLabel(firstDescription));
+            scrollPane.setPreferredSize(new Dimension(500,250));
+            message = scrollPane;         
+            textArea= new JTextArea(firstDescription);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            textArea.setMargin(new Insets(5,5,5,5));
+            scrollPane.getViewport().setView(textArea);
+            message= scrollPane;
+            userChoice = JOptionPane.showInputDialog(null,message);               
+            choice = firstOption.getAction(userChoice);
+            nextDescription = choice.getDescription();
+            aOrB = true;
          }
-         scrollPane= new JScrollPane(new JLabel(nextDescription));
-         scrollPane.setPreferredSize(new Dimension(500,250));
-         message = scrollPane;         
-         textArea= new JTextArea(nextDescription);
-         textArea.setLineWrap(true);
-         textArea.setWrapStyleWord(true);
-         textArea.setMargin(new Insets(5,5,5,5));
-         scrollPane.getViewport().setView(textArea);
-         message= scrollPane;
-        // try{
-         userChoice = JOptionPane.showInputDialog(null,message);
-         //}catch(NullPointerException a){
-        // JOptionPane.showMessageDialog(null,"Please type a or b");
-        // }      
-         Options nextChoice= choice.getAction(userChoice);
-      
-         
+         catch(NullPointerException a){
+            JOptionPane.showMessageDialog(null,"Please type a or b");
+            aOrB = false;
+         }      
+      }
+      aOrB = false;
+      while(userIsAlive){
+         while(aOrB != true){
+            try{
+               scrollPane= new JScrollPane(new JLabel(nextDescription));
+               scrollPane.setPreferredSize(new Dimension(500,250));
+               message = scrollPane;         
+               textArea= new JTextArea(nextDescription);
+               textArea.setLineWrap(true);
+               textArea.setWrapStyleWord(true);
+               textArea.setMargin(new Insets(5,5,5,5));
+               scrollPane.getViewport().setView(textArea);
+               message= scrollPane;
+               userChoice = JOptionPane.showInputDialog(null,message);
+               nextChoice= choice.getAction(userChoice);
+               if(choice.getAction("a") == null){
+                  break; 
+               }    
+               nextDescription= nextChoice.getDescription();
+               aOrB = true;    
+            }
+            catch(NullPointerException a){
+               JOptionPane.showMessageDialog(null,"Please type a or b or c (if there's a c option).");
+               aOrB = false;
+            }   
+         }
          if(choice.getAction("a") == null){
             break;     
          }
-         else{
-            choice = nextChoice;
-         }
-      }     
+         choice = nextChoice;
+         aOrB = false;   
+      }
    }
     
    public static Options getChild (Scanner readText, String title, String description, boolean firstOp){
@@ -143,25 +141,3 @@ public class AdventureGUI {
       }   
    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
